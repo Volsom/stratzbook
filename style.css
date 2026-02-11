@@ -1,0 +1,164 @@
+:root {
+            --bg-dark: #0b0e13;
+            --accent: #ff4655;
+            --t-side: #de9b35;
+            --ct-side: #4a90e2;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --card-br: 20px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between; /* Лого слева, навигация справа */
+            align-items: center;
+            padding: 0 5%; /* Динамические отступы по бокам */
+            height: 80px;
+            background-color: var(--bg-dark); /* Чтобы фон не просвечивал */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%; /* Растягиваем на всю ширину */
+            box-sizing: border-box; /* Чтобы padding не раздувал ширину */
+        }
+
+        .logo { 
+            font-size: 24px; 
+            font-weight: 900; 
+            letter-spacing: -1px;
+            white-space: nowrap; /* Чтобы лого не переносилось на вторую строку */
+            flex-shrink: 0; /* Запрещаем логотипу сжиматься */
+        }
+        .logo span { color: var(--accent); }
+
+        nav { 
+            display: flex; 
+            gap: clamp(15px, 3vw, 40px); /* Гибкий отступ между ссылками */
+            margin-left: 20px;
+        }
+        nav a { 
+            color: var(--text-dim); 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 13px; 
+            text-transform: uppercase;
+            white-space: nowrap; /* Текст кнопок в одну строку */
+            transition: 0.3s;
+        }
+        nav a:hover, nav a.active { color: white; }
+
+        /* --- ГЕРОЙ --- */
+        .hero { padding: 60px 5% 20px; }
+        .hero h1 { font-size: 48px; font-weight: 900; text-transform: uppercase; margin: 0; }
+
+        /* --- ГРИД КАРТ --- */
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 20px 5% 100px;
+        }
+
+        .map-card {
+            position: relative;
+            height: 240px;
+            border-radius: var(--card-br);
+            overflow: hidden; /* Скрывает края заблюренной картинки */
+            text-decoration: none;
+            display: flex;
+            align-items: flex-end;
+            border: 1px solid rgb(70, 70, 70);
+            transition: all 0.3s ease;
+        }
+
+        /* Фоновый слой (Блюр без грязных краев) */
+        .map-card::before {
+            content: '';
+            position: absolute;
+            /* Выходим за границы на 20px, чтобы спрятать артефакты блюра */
+            top: -20px; left: -20px; right: -20px; bottom: -20px;
+            
+            background-image: inherit;
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px);
+            z-index: 1;
+            transition: all 0.5s ease;
+        }
+
+        /* Затемняющий градиент */
+        .map-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%);
+            z-index: 2;
+        }
+
+        /* Эффект при наведении */
+        .map-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(255, 70, 85, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .map-card:hover::before {
+            filter: blur(0px); /* Картинка становится четкой */
+            top: 0; left: 0; right: 0; bottom: 0;
+        }
+
+        /* Инфо блок */
+        .map-info {
+            position: relative;
+            z-index: 3;
+            padding: 25px;
+        }
+
+        .map-info h2 { 
+            margin: 0 0 12px 0; 
+            font-size: 32px; 
+            font-weight: 900; 
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .sides-badges { display: flex; gap: 8px; }
+        
+        .badge {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge.t { background: var(--t-side); color: #000; }
+        .badge.ct { background: var(--ct-side); color: #fff; }
+
+        /* --- ПУТИ К КАРТИНКАМ --- */
+        .mirage   { background-image: url('img/mirage.webp'); }
+        .inferno  { background-image: url('img/inferno.webp'); }
+        .dust2    { background-image: url('img/dust2.jpg'); }
+        .anubis   { background-image: url('img/anubis.jpg'); }
+        .ancient  { background-image: url('img/ancient.webp'); }
+        .overpass { background-image: url('img/overpass.jpg'); }
+        .nuke     { background-image: url('img/nuke.jpg'); }
+        @media (max-width: 480px) {
+            header {
+                padding: 0 15px;
+                height: 60px;
+            }
+            .logo { font-size: 18px; }
+            nav { gap: 15px; }
+            nav a { font-size: 11px; }
+        }
