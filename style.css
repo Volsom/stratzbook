@@ -162,3 +162,29 @@
             nav { gap: 15px; }
             nav a { font-size: 11px; }
         }
+            /* Описываем саму анимацию */
+            @keyframes cardAppear {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* Применяем её к карточкам */
+            .map-card {
+                opacity: 0; /* Изначально скрыты */
+                animation: cardAppear 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            }
+            
+            /* Добавляем задержку для каждой карточки, чтобы они шли "лесенкой" */
+            .map-card:nth-child(1) { animation-delay: 0.1s; }
+            .map-card:nth-child(2) { animation-delay: 0.2s; }
+            .map-card:nth-child(3) { animation-delay: 0.3s; }
+            .map-card:nth-child(4) { animation-delay: 0.4s; }
+            .map-card:nth-child(5) { animation-delay: 0.5s; }
+            .map-card:nth-child(6) { animation-delay: 0.6s; }
+            .map-card:nth-child(7) { animation-delay: 0.7s; }
